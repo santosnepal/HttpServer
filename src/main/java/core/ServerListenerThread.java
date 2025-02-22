@@ -25,6 +25,12 @@ public class ServerListenerThread extends Thread {
             this.serverSocket.close();
         }catch (IOException e){
             LOGGER.error(e.getMessage());
+        }finally {
+            if(this.serverSocket !=null) {
+                try {
+                    this.serverSocket.close();
+                } catch (IOException e) {}
+               }
         }
 
     }

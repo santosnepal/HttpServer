@@ -23,9 +23,11 @@ public class HttpConnectionWorkerThread extends Thread {
 
     @Override
     public void run() {
+        InputStream input = null;
+        OutputStream output = null;
         try {
-            InputStream input = this.socket.getInputStream();
-            OutputStream output = this.socket.getOutputStream();
+            input = this.socket.getInputStream();
+            output = this.socket.getOutputStream();
             String returnString = this.httpResponses.getResponse(this.htmlReader.getHtmlFile("page.html"));
             output.write(returnString.getBytes());
             output.flush();
@@ -33,19 +35,27 @@ public class HttpConnectionWorkerThread extends Thread {
              * TODO
              *  Read from socket and write from socket
              */
-
-
-            input.close();
-            output.close();
-            socket.close();
             try {
                 sleep(5000);
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());
             }
             LOGGER.info("HTTP connection completed.");
-        }catch (IOException e){
+        } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
+        } finally {
+            try {
+                if(input != null ) {
+                    input.close();
+                }
+                if(output != null ) {
+                    output.close();
+                }
+                if(this.socket != null ) {
+                    this.socket.close();
+                }
+            } catch (IOException e) {
+            }
         }
     }
 }

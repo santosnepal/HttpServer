@@ -23,8 +23,8 @@ public class HttpServer {
             Configuration conf = ConfigurationManager.getInstance().getCurrentConfiguration();
             LOGGER.info("Server Started at port: {}", conf.getPort());
             LOGGER.info("Using web root: {}", conf.getWebrootPath());
-            ServerListenerThread serverListner = new ServerListenerThread(conf.getPort(),conf.getWebrootPath());
-            serverListner.start();
+            ServerListenerThread serverListener = new ServerListenerThread(conf.getPort(),conf.getWebrootPath());
+            serverListener.start();
         } catch (IOException e) {
             throw new HttpConfigurationException(e);
         }
