@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #e91e63;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .yes {
+            background-color: #4caf50;
+            color: white;
+        }
+        .yes:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+        .no {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            position: absolute;
+        }
+        .reward {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp 2s ease-in-out forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Do you love me?</h1>
+    <button class="yes" onclick="showReward()">Yes</button>
+    <button class="no" disabled onmouseover="runAway()" onfocus="runAway()">No</button>
+</div>
+<script>
+    function runAway() {
+        const noButton = document.querySelector('.no');
+        const x = Math.floor(Math.random() * (window.innerWidth - 100));
+        const y = Math.floor(Math.random() * (window.innerHeight - 50));
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
+    }
+
+    function showReward() {
+        const reward = document.createElement('div');
+        reward.className = 'reward';
+        reward.innerText = '🎉💖 You’re the best! 💖🎉';
+        const x = Math.floor(Math.random() * (window.innerWidth - 200));
+        const y = Math.floor(Math.random() * (window.innerHeight - 100));
+        reward.style.left = `${x}px`;
+        reward.style.top = `${y}px`;
+        document.body.appendChild(reward);
+
+        setTimeout(() => reward.remove(), 2000);
+    }
+</script>
+</body>
+</html>
